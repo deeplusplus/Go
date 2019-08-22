@@ -21,8 +21,11 @@ def main():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                PiecePlacer.place_piece(pygame.mouse.get_pos(), move)
-                move += 1
+                polished_coords = PiecePlacer.polish_coordinates(pygame.mouse.get_pos())
+                if PiecePlacer.is_valid_coordinate(polished_coords):
+                    board_coord = PiecePlacer.from_x_y_to_board_coord(polished_coords)
+                else:
+                    pass
 
 
 if __name__ == "__main__":

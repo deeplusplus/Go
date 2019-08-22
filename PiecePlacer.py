@@ -1,7 +1,19 @@
 import pygame
+from typing import Tuple
 
 
-def attempt_to_place(piece_to_place_x, piece_to_place_y):
+def polish_coordinates(mouse_click_pos) -> Tuple[int, int]:
+    polished_x = _determine_x_coordinate(mouse_click_pos[0])
+    polished_y = _determine_y_coordinate(mouse_click_pos[1])
+    return polished_x, polished_y
+
+
+def is_valid_coordinate(piece_to_place_coords) -> bool:
+    piece_to_place_x = piece_to_place_coords[0]
+    piece_to_place_y = piece_to_place_coords[1]
+
+    if piece_to_place_x < 30 or piece_to_place_x > 570 or piece_to_place_y < 30 or piece_to_place_y > 570:
+        return False
     return True
 
 
@@ -41,3 +53,13 @@ def _determine_y_coordinate(initial_y):
         return initial_y + (30 - input_remainder)
     else:
         return initial_y - input_remainder
+
+
+def from_x_y_to_board_coord(coordinate: Tuple[int, int]) -> str:
+    coord_x = coordinate[0]
+    coord_y = coordinate[1]
+
+    board_horizontal = chr(int((coord_x / 30) + 64))
+    board_vertical = int(coord_y / 30)
+
+    return board_horizontal + str(board_vertical)
