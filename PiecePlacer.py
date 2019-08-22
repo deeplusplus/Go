@@ -3,6 +3,12 @@ from OccupationEnum import Occupation
 from typing import Tuple, Dict
 
 
+def space_already_occupied(board_space: str, board: Dict[str, Occupation]) -> bool:
+    if board[board_space] is not Occupation.Empty:
+        return True
+    else:
+        return False
+
 def polish_coordinates(mouse_click_pos) -> Tuple[int, int]:
     polished_x = _determine_x_coordinate(mouse_click_pos[0])
     polished_y = _determine_y_coordinate(mouse_click_pos[1])
