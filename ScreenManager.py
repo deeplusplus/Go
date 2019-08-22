@@ -1,7 +1,6 @@
 import pygame
 import sys
 
-
 def create_screen():
     window_default_size = (600, 600)
     pygame.display.set_mode(window_default_size, pygame.RESIZABLE)

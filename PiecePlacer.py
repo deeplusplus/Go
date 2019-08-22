@@ -6,8 +6,8 @@ def attempt_to_place(piece_to_place_x, piece_to_place_y):
 
 
 def _notify_invalid_spot():
-    error__red = (139,0,0)
-    error_background = (132,132,130)
+    error__red = (139, 0, 0)
+    error_background = (132, 132, 130)
     notification_font = pygame.font.SysFont('Arial', 18, False, False, None)
     error_surface = notification_font.render('Invalid piece placement', False, error__red, error_background)
     surface = pygame.display.get_surface()
@@ -41,4 +41,3 @@ def _determine_y_coordinate(initial_y):
         return initial_y + (30 - input_remainder)
     else:
         return initial_y - input_remainder
-
