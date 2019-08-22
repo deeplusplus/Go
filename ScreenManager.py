@@ -1,18 +1,48 @@
 import pygame
 import sys
+from typing import Dict, Tuple
+from OccupationEnum import Occupation
+
 
 def create_screen():
     window_default_size = (600, 600)
     pygame.display.set_mode(window_default_size, pygame.RESIZABLE)
 
 
-def draw_board():
+def draw_board(board: Dict[str, Occupation]):
     board_color = (255, 192, 66)
     board_draw_info = (10, 10, 590, 590)
     pygame.draw.rect(pygame.display.get_surface(), board_color, board_draw_info)
     _draw_horizontal_lines()
     _draw_vertical_lines()
     _draw_star_points()
+    _draw_stones(_filter_to_stones(board))
+
+
+def _filter_to_stones(board: Dict[str, Occupation]) -> Dict[str, Occupation]:
+    active_spaces_only = {}
+    for space, occupation in board.items():
+        if occupation is not Occupation.Empty:
+            active_spaces_only[space] = occupation
+    return active_spaces_only
+
+
+def _draw_stones(active_stones: Dict[str, Occupation]):
+    coordinates: Tuple[int, int]
+    for space, occupation in active_stones.items():
+        coordinates = _from_board_space_to_coords(space)
+        color = (0, 0, 0) if occupation is Occupation.Black else (255, 255, 255)
+        pygame.draw.circle(pygame.display.get_surface(), color, coordinates, 15)
+
+
+def _from_board_space_to_coords(space: str) -> Tuple[int, int]:
+    board_horizontal = space[0]
+    board_vertical = space[1:]
+
+    x_coord = (ord(board_horizontal) - 64) * 30
+    y_coord = (int(board_vertical) * 30)
+
+    return x_coord, y_coord
 
 
 def _draw_horizontal_lines():

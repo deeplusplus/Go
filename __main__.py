@@ -10,7 +10,7 @@ def main():
     pygame.font.init()
     ScreenManager.create_screen()
     board_in_play = GameManager.create_new_board()
-    ScreenManager.draw_board()
+    ScreenManager.draw_board(board_in_play)
 
     move = 0
 
@@ -26,7 +26,7 @@ def main():
                     board_coord = PiecePlacer.from_x_y_to_board_coord(polished_coords)
                     board_in_play = PiecePlacer.place_piece(board_coord, board_in_play, move)
                     move += 1
-                    print(board_in_play)
+                    ScreenManager.draw_board(board_in_play)
                 else:
                     pass
 
