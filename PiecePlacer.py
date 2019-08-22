@@ -1,5 +1,6 @@
 import pygame
-from typing import Tuple
+from OccupationEnum import Occupation
+from typing import Tuple, Dict
 
 
 def polish_coordinates(mouse_click_pos) -> Tuple[int, int]:
@@ -26,17 +27,15 @@ def _notify_invalid_spot():
     surface.blit(error_surface, (300, 300))
 
 
-def place_piece(mouse_click_pos, move):
-    color = (255, 255, 255) if move % 2 == 0 else (0, 0, 0)
-    piece_to_place_x = _determine_x_coordinate(mouse_click_pos[0])
-    piece_to_place_y = _determine_y_coordinate(mouse_click_pos[1])
+def place_piece(board_coord: str, board: Dict[str, int], move: int) -> Dict[str, Occupation]:
+    if board[board_coord] is not Occupation.Empty:
+        return board
 
-    is_valid_spot = attempt_to_place(piece_to_place_x, piece_to_place_y)
-
-    if is_valid_spot:
-        pygame.draw.circle(pygame.display.get_surface(), color, (piece_to_place_x, piece_to_place_y), 15)
+    if move % 2 == 0:
+        board[board_coord] = Occupation.White
     else:
-        _notify_invalid_spot()
+        board[board_coord] = Occupation.Black
+    return board
 
 
 def _determine_x_coordinate(initial_x):

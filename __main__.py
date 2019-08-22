@@ -24,6 +24,9 @@ def main():
                 polished_coords = PiecePlacer.polish_coordinates(pygame.mouse.get_pos())
                 if PiecePlacer.is_valid_coordinate(polished_coords):
                     board_coord = PiecePlacer.from_x_y_to_board_coord(polished_coords)
+                    board_in_play = PiecePlacer.place_piece(board_coord, board_in_play, move)
+                    move += 1
+                    print(board_in_play)
                 else:
                     pass
 
